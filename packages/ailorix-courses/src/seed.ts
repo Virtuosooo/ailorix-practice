@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { db } from "@earthworm/db";
 import {
@@ -12,14 +12,11 @@ import { ailorixCoursePack, ailorixCourses } from "./courses";
 
 (async function () {
   await db.transaction(async (tx) => {
-    const existingPack = await tx.query.coursePack.findFirst({
-      where: and(
-        eq(coursePack.creatorId, ailorixCoursePack.creatorId),
-        eq(coursePack.title, ailorixCoursePack.title),
-      ),
+    const existingPacks = await tx.query.coursePack.findMany({
+      where: eq(coursePack.creatorId, ailorixCoursePack.creatorId),
     });
 
-    if (existingPack) {
+    for (const existingPack of existingPacks) {
       const existingCourses = await tx.query.course.findMany({
         where: eq(course.coursePackId, existingPack.id),
       });
