@@ -5,9 +5,25 @@ import { useCourseStore } from "~/store/course";
 import { play, updateSource } from "../audio";
 import { useCurrentStatementEnglishSound } from "../index";
 
+vi.hoisted(() => {
+  const store = new Map<string, string>();
+  const mock = {
+    clear: vi.fn(() => store.clear()),
+    getItem: vi.fn((key: string) => store.get(key) ?? null),
+    removeItem: vi.fn((key: string) => store.delete(key)),
+    setItem: vi.fn((key: string, value: string) => store.set(key, value)),
+  };
+
+  Object.defineProperty(globalThis, "localStorage", {
+    configurable: true,
+    value: mock,
+  });
+});
+
 vi.mock("../audio.ts", () => {
   return {
     updateSource: vi.fn(),
+    updateText: vi.fn(),
     play: vi.fn(),
   };
 });

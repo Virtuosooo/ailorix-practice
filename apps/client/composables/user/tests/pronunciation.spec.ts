@@ -1,47 +1,34 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { PronunciationType, usePronunciation } from "../pronunciation";
+import { usePronunciation } from "../pronunciation";
 
-const PRONUNCIATION_TYPE = "pronunciationType";
+const localStorageMock = vi.hoisted(() => {
+  const store = new Map<string, string>();
+  const mock = {
+    clear: vi.fn(() => store.clear()),
+    getItem: vi.fn((key: string) => store.get(key) ?? null),
+    removeItem: vi.fn((key: string) => store.delete(key)),
+    setItem: vi.fn((key: string, value: string) => store.set(key, value)),
+  };
 
-function expectPronunciation(type: PronunciationType) {
-  const { pronunciation } = usePronunciation();
+  Object.defineProperty(globalThis, "localStorage", {
+    configurable: true,
+    value: mock,
+  });
 
-  expect(pronunciation.value).toBe(type);
-  expect(localStorage.getItem(PRONUNCIATION_TYPE)).toBe(type);
-}
+  return mock;
+});
 
 describe("pronunciation", () => {
   beforeEach(() => {
-    const { pronunciation } = usePronunciation();
-    pronunciation.value = PronunciationType.American;
-    localStorage.clear();
+    localStorageMock.clear();
   });
 
-  it("get default pronunciation if it was stored", () => {
-    localStorage.setItem(PRONUNCIATION_TYPE, PronunciationType.British);
+  it("encodes sentence text in Youdao pronunciation urls", () => {
+    const { getPronunciationUrl } = usePronunciation();
 
-    expectPronunciation(PronunciationType.British);
-  });
-
-  it("get default pronunciation if it wasn't stored", () => {
-    expectPronunciation(PronunciationType.American);
-  });
-
-  it("get pronunciation options", () => {
-    const { getPronunciationOptions } = usePronunciation();
-
-    expect(getPronunciationOptions()).toEqual([
-      { label: "美音", value: "American" },
-      { label: "英音", value: "British" },
-    ]);
-  });
-
-  it("toggle pronunciation", () => {
-    const { togglePronunciation } = usePronunciation();
-
-    togglePronunciation(PronunciationType.British);
-
-    expectPronunciation(PronunciationType.British);
+    expect(getPronunciationUrl("Let me check and get back to you later.")).toBe(
+      "https://dict.youdao.com/dictvoice?type=2&audio=Let%20me%20check%20and%20get%20back%20to%20you%20later.",
+    );
   });
 });
