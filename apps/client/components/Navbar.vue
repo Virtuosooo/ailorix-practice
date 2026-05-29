@@ -17,10 +17,10 @@
                 height="48"
                 class="mr-6 hidden overflow-hidden rounded-md md:block"
                 src="/logo.png"
-                alt="earth-worm-logo"
+                alt="Ailorix Practice logo"
               />
               <h1 class="text-wrap text-2xl font-extrabold leading-normal dark:text-white">
-                Earthworm
+                Ailorix Practice
               </h1>
             </div>
           </NuxtLink>
@@ -81,7 +81,6 @@
 
 <script setup lang="ts">
 import { useWindowScroll } from "@vueuse/core";
-import { useRuntimeConfig } from "nuxt/app";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
@@ -89,7 +88,6 @@ import { useUserMenu } from "~/composables/user/useUserMenu";
 import { isAuthenticated, signIn } from "~/services/auth";
 import { useUserStore } from "~/store/user";
 
-const runtimeConfig = useRuntimeConfig();
 const { openUserMenu } = useUserMenu();
 
 const route = useRoute();
@@ -104,10 +102,8 @@ interface AnchorAttributes extends Record<string, any> {
   download?: string;
 }
 const HEADER_OPTIONS: AnchorAttributes[] = [
-  { name: "文档", href: runtimeConfig.public.helpDocsURL as string, target: "_blank" },
-  { name: "功能", href: "#features" },
-  { name: "问题", href: "#faq" },
-  { name: "联系我们", href: "#contact" },
+  { name: "训练方式", href: "#features" },
+  { name: "返回 Ailorix", href: "https://ailorix.com/dashboard" },
 ];
 
 // TODO: 设置需要固定导航栏的页面

@@ -2,9 +2,6 @@
   <div class="font-customFont">
     <LandingBanner @start-earthworm="startEarthworm" />
     <LandingFeatures />
-    <LandingComments />
-    <LandingQuestions />
-    <LandingContact />
     <CommonBackTop class="sticky bottom-28 ml-auto flex justify-end sm:block" />
   </div>
 </template>

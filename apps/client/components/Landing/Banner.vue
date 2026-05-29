@@ -7,24 +7,22 @@
       <h2
         class="bg-gradient-to-r from-purple-600 to-gray-200 bg-clip-text text-3xl font-extrabold tracking-tight text-transparent dark:from-purple-600 dark:to-gray-100 lg:text-4xl xl:text-5xl"
       >
-        让你上瘾的英语学习工具
+        Ailorix 职场英语句子练习
       </h2>
 
       <div class="mt-5 text-sm md:text-base xl:text-lg">
         <p class="pt-2 text-center text-gray-500 dark:text-gray-300 lg:text-xl">
-          使用<span class="text-purple-400 dark:text-purple-200"> 连词成句 </span>、<span
+          用<span class="text-purple-400 dark:text-purple-200"> 连词成句 </span>和<span
             class="text-purple-400 dark:text-purple-200"
           >
-            i + 1 </span
-          >、<span class="text-purple-400 dark:text-purple-200"> 以终为始 </span
-          >等学习理论来帮助你习得英语
+            高频重复 </span
+          >练准会议、汇报、邮件里的英文表达
         </p>
         <p class="pt-2 text-center text-gray-500 dark:text-gray-300 lg:text-xl">
-          通过不断的<span class="text-purple-400 dark:text-purple-200"> 重复 </span>形成肌肉记忆
+          先把句子结构练到熟，再回到 Ailorix 完成真实职业场景输出
         </p>
         <p class="pt-2 text-center text-gray-500 dark:text-gray-300 lg:text-xl">
-          最重要的是<span class="text-purple-400 dark:text-purple-200"> 游戏化 </span
-          >的形式让学习英语从此不再痛苦
+          适合每天 10 分钟，给工作英语建立可持续的肌肉记忆
         </p>
       </div>
     </div>
@@ -34,7 +32,7 @@
         class="btn relative"
         type="button"
       >
-        <strong>开启Earthworm</strong>
+        <strong>开始练习</strong>
         <div id="container-stars">
           <div id="stars"></div>
         </div>
@@ -45,35 +43,10 @@
         </div>
       </button>
       <a
-        href="https://github.com/cuixueshe/earthworm"
-        rel="noreferrer noopener"
-        target="_blank"
-        class="group relative inline-flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full px-6 duration-500"
+        href="https://ailorix.com/dashboard"
+        class="inline-flex h-12 items-center justify-center rounded-full bg-purple-50 px-6 font-medium text-purple-600 transition hover:bg-purple-100 dark:bg-white/10 dark:text-purple-200"
       >
-        <div
-          class="relative inline-flex -translate-x-0 items-center transition group-hover:-translate-x-6"
-        >
-          <div
-            class="absolute flex translate-x-0 items-center justify-center text-purple-600 opacity-100 transition group-hover:-translate-x-6 group-hover:opacity-0"
-          >
-            <UIcon
-              name="i-ph-star-fill"
-              class="h-5 w-5"
-            ></UIcon>
-          </div>
-          <span
-            class="bg-gradient-to-r from-purple-600 to-gray-300 bg-clip-text pl-6 font-medium text-transparent"
-            >Star us on GitHub</span
-          >
-          <div
-            class="absolute right-0 flex translate-x-12 items-center justify-center text-purple-400 opacity-0 transition group-hover:translate-x-6 group-hover:opacity-100"
-          >
-            <UIcon
-              name="i-ph-arrow-right"
-              class="h-5 w-5"
-            ></UIcon>
-          </div>
-        </div>
+        回到 Ailorix Dashboard
       </a>
     </div>
     <div class="mt-20 flex w-full justify-center">
