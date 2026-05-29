@@ -1,0 +1,15 @@
+{
+  "name": "@earthworm/ailorix-courses",
+  "version": "1.0.0",
+  "description": "Ailorix work English course pack seed data",
+  "main": "src/seed.ts",
+  "scripts": {
+    "upload": "tsx src/seed.ts",
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "@earthworm/db": "workspace:^",
+    "@earthworm/schema": "workspace:^",
+    "drizzle-orm": "^0.32.0"
+  }
+}
