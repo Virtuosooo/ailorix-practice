@@ -1,6 +1,25 @@
 <template>
   <div class="flex w-full flex-col">
     <h2 class="mb-4 text-center text-3xl dark:border-gray-600">课程包列表</h2>
+    <div
+      role="tablist"
+      class="tabs-boxed tabs mx-auto mb-5 w-fit bg-gray-100 p-1 dark:bg-gray-800"
+    >
+      <button
+        v-for="option in categoryOptions"
+        :key="option.value"
+        role="tab"
+        type="button"
+        class="tab h-9 rounded-md px-4 text-sm transition-colors sm:px-6"
+        :class="{
+          'tab-active bg-white font-semibold shadow-sm dark:bg-gray-700':
+            selectedCategory === option.value,
+        }"
+        @click="selectedCategory = option.value"
+      >
+        {{ option.label }}
+      </button>
+    </div>
     <template v-if="isLoading">
       <Loading></Loading>
     </template>
@@ -9,7 +28,10 @@
         <div
           class="grid auto-rows-fr grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 lg:grid-cols-4"
         >
-          <template v-for="coursePack in coursePackStore.coursePacks">
+          <template
+            v-for="coursePack in visibleCoursePacks"
+            :key="coursePack.id"
+          >
             <CoursePackCard
               :coursePack="{
                 id: coursePack.id,
@@ -28,16 +50,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import type { CoursePack } from "~/types";
 import CoursePackCard from "~/components/courses/CoursePackCard.vue";
 import { useNavigation } from "~/composables/useNavigation";
 import { useCoursePackStore } from "~/store/coursePack";
+import { CoursePackCategory, filterAndSortCoursePacks } from "~/utils/coursePackFilter";
 
 const coursePackStore = useCoursePackStore();
 const { gotoCourseList } = useNavigation();
 const isLoading = ref(false);
+const selectedCategory = ref(CoursePackCategory.All);
+const categoryOptions = [
+  { label: "全部", value: CoursePackCategory.All },
+  { label: "职业英语", value: CoursePackCategory.Professional },
+  { label: "通用英语", value: CoursePackCategory.General },
+];
+const visibleCoursePacks = computed(() =>
+  filterAndSortCoursePacks(coursePackStore.coursePacks, selectedCategory.value),
+);
 
 setup();
 
