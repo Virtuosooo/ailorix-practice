@@ -111,6 +111,27 @@ describe("question", () => {
     expect(wrongCallback).not.toBeCalled();
   });
 
+  it("should ignore a full stop attached to the final answer word", async () => {
+    const setInputCursorPosition = () => {};
+    const getInputCursorPosition = () => 0;
+
+    const { setInputValue, submitAnswer, initialize } = useInput({
+      source: () => "i eat.",
+      setInputCursorPosition,
+      getInputCursorPosition,
+    });
+
+    initialize();
+    setInputValue("i eat");
+
+    const correctCallback = vi.fn();
+    const wrongCallback = vi.fn();
+    submitAnswer(correctCallback, wrongCallback);
+
+    expect(correctCallback).toBeCalled();
+    expect(wrongCallback).not.toBeCalled();
+  });
+
   it("should be incorrect when checked the answer", async () => {
     const setInputCursorPosition = () => {};
     const getInputCursorPosition = () => 0;
