@@ -51,4 +51,8 @@ const { status } = useAsyncData("initApplication", async () => {
 .mod-json {
   display: none !important;
 }
+
+[data-sonner-toaster] {
+  max-width: calc(100vw - 2rem);
+}
 </style>
