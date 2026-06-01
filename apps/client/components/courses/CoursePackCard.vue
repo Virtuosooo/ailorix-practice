@@ -4,9 +4,9 @@
     @click="$emit('cardClick', coursePack)"
   >
     <figure class="relative aspect-video overflow-hidden">
-      <NuxtImg
+      <img
         :src="coursePack.cover"
-        :placeholder="[288, 180]"
+        :alt="coursePack.title"
         width="288"
         height="180"
         class="inset-0 h-full w-full object-cover"
