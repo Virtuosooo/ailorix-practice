@@ -1,8 +1,14 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { clearAutoNextQuestionTimer, startAutoNextQuestionTimer } from "../autoNextQuestionTimer";
 import { useGameMode } from "../game";
 
 describe("Game Mode Composable", () => {
+  afterEach(() => {
+    clearAutoNextQuestionTimer();
+    vi.useRealTimers();
+  });
+
   it("changes game mode to Answer", () => {
     const { showAnswer, isAnswer } = useGameMode();
 
@@ -34,5 +40,17 @@ describe("Game Mode Composable", () => {
 
     expect(isQuestion()).toBe(true);
     expect(isAnswer()).toBe(false);
+  });
+
+  it("clears the pending auto next timer when returning to the question", () => {
+    vi.useFakeTimers();
+    const callback = vi.fn();
+    const { showQuestion } = useGameMode();
+    startAutoNextQuestionTimer(callback);
+
+    showQuestion();
+    vi.advanceTimersByTime(1500);
+
+    expect(callback).not.toHaveBeenCalled();
   });
 });

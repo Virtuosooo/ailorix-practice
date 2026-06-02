@@ -19,6 +19,7 @@ import { onMounted, onUnmounted } from "vue";
 
 import GamePauseModal from "~/components/main/GamePauseModal.vue";
 import { courseTimer } from "~/composables/courses/courseTimer";
+import { clearAutoNextQuestionTimer } from "~/composables/main/autoNextQuestionTimer";
 import { useGamePlayMode } from "~/composables/user/gamePlayMode";
 import { isAuthenticated } from "~/services/auth";
 import { useGameStore } from "~/store/game";
@@ -32,6 +33,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  clearAutoNextQuestionTimer();
   gameStore.exitGame();
 });
 </script>

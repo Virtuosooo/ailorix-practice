@@ -1,6 +1,8 @@
 import { useDevice, useIsLandscape } from "#imports";
 import { ref, watchEffect } from "vue";
 
+import { clearAutoNextQuestionTimer } from "./autoNextQuestionTimer";
+
 export enum GameMode {
   Question = "question",
   Answer = "answer",
@@ -14,6 +16,7 @@ export function useGameMode() {
   }
 
   function showQuestion() {
+    clearAutoNextQuestionTimer();
     gameMode.value = GameMode.Question;
   }
 

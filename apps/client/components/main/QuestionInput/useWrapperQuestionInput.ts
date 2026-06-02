@@ -1,21 +1,21 @@
 import { courseTimer } from "~/composables/courses/courseTimer";
+import { startAutoNextQuestionTimer } from "~/composables/main/autoNextQuestionTimer";
 import { useGameMode } from "~/composables/main/game";
 import { useInput } from "~/composables/main/question";
-import { useSummary } from "~/composables/main/summary";
 import { useAutoNextQuestion } from "~/composables/user/autoNext";
 import { useKeyboardSound } from "~/composables/user/sound";
 import { useSpaceSubmitAnswer } from "~/composables/user/submitKey";
 import { useCourseStore } from "~/store/course";
 import { useQuestionInput } from "./questionInputHelper";
+import { useAnswer } from "./useAnswer";
 import { useAnswerError } from "./useAnswerError";
 import { usePlayTipSound, useTypingSound } from "./useTypingSound";
 
 export function useWrapperQuestionInput() {
   const courseStore = useCourseStore();
   const { showAnswer } = useGameMode();
-  const { showSummary } = useSummary();
-  const { setInputCursorPosition, getInputCursorPosition, blurInput, focusInput } =
-    useQuestionInput();
+  const { goToNextQuestion } = useAnswer();
+  const { setInputCursorPosition, getInputCursorPosition, focusInput } = useQuestionInput();
   const { isKeyboardSoundEnabled } = useKeyboardSound();
   const { checkPlayTypingSound, playTypingSound } = useTypingSound();
   const { handleAnswerError } = useAnswerError();
@@ -50,15 +50,12 @@ export function useWrapperQuestionInput() {
     playRightSound();
 
     if (isAutoNextQuestion()) {
-      // 自动下一题
-      if (courseStore.isAllDone()) {
-        blurInput(); // 失去输入焦点，防止结束时光标仍然在输入框，造成后续结算面板回车事件无法触发
-        showSummary();
-      }
-      courseStore.toNextStatement();
-    } else {
       showAnswer();
+      startAutoNextQuestionTimer(goToNextQuestion);
+      return;
     }
+
+    showAnswer();
   }
 
   return {
